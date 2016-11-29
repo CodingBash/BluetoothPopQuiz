@@ -10,6 +10,7 @@ import java.util.Set;
 
 import java.util.List;
 
+// TODO: Connection functionality
 public class StudentBluetoothActivity extends AppCompatActivity {
 
     private ListView bluetoothListView;

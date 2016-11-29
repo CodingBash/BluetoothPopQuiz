@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ilstu.bluetoothpopquiz">
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <applicatio
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +20,11 @@
         </activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".TeacherBluetoothActivity" />
-        <activity android:name=".StudentBluetoothActivity"></activity>
+        <activity android:name=".StudentBluetoothActivity" />
     </applicatio>
+
+    <application>
+        <activity android:name=".TeacherQuizCreationActivity"></activity>
+    </application>
 
 </manifest>
