@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToProfileSelectActivity(){
-        // TODO: Change to actual activity
         Intent i = new Intent(this, ProfileActivity.class);
         startActivity(i);
     }

@@ -10,15 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.ilstu.bluetoothpopquiz.TeacherQuizCreationActivity">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_below="@+id/count_text"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="35dp"
-        android:id="@+id/question_list_view" />
-
     <Button
         android:text="Send"
         android:layout_width="wrap_content"
@@ -34,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Questions Entered: 0"
+        android:text="Questions Entered:"
         android:id="@+id/count_text"
         android:layout_marginLeft="26dp"
         android:layout_marginStart="26dp"
@@ -42,19 +33,6 @@
         android:layout_alignBottom="@+id/send_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Enter custom question"
-        android:ems="10"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/custom_question_field"
-        android:backgroundTint="@color/colorDark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/send_button"
-        android:layout_alignEnd="@+id/send_button" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -66,6 +44,41 @@
         android:layout_alignBottom="@+id/custom_question_field"
         android:layout_alignLeft="@+id/count_text"
         android:layout_alignStart="@+id/count_text" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/question_list_view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:isScrollContainer="false"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/custom_question_field" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter custom question"
+        android:ems="10"
+        android:id="@+id/custom_question_field"
+        android:backgroundTint="@color/colorDark"
+        android:layout_below="@+id/send_button"
+        android:layout_toRightOf="@+id/custom_question_check"
+        android:layout_toEndOf="@+id/custom_question_check"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/count_text_number"
+        android:layout_alignBaseline="@+id/count_text"
+        android:layout_alignBottom="@+id/count_text"
+        android:layout_toRightOf="@+id/count_text"
+        android:layout_toEndOf="@+id/count_text"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
 
 
 </RelativeLayout>

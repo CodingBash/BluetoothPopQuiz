@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-    <applicatio
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,10 +21,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".TeacherBluetoothActivity" />
         <activity android:name=".StudentBluetoothActivity" />
-    </applicatio>
-
-    <application>
-        <activity android:name=".TeacherQuizCreationActivity"></activity>
+        <activity android:name=".TeacherQuizCreationActivity"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
-
 </manifest>
