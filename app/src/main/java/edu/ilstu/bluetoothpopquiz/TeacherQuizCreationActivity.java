@@ -1,6 +1,7 @@
 package edu.ilstu.bluetoothpopquiz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,7 +31,6 @@ public class TeacherQuizCreationActivity extends AppCompatActivity {
 
     private TextView countText;
     private Button sendButton;
-    // TODO: List View w/ Checkbox implementation - http://www.mysamplecode.com/2012/07/android-listview-checkbox-example.html
     private ListView listView;
     private EditText customQuestion;
     private CheckBox addCustomQuestionCheck;
@@ -52,6 +52,8 @@ public class TeacherQuizCreationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: Send logic. Must send the 'sentQuestions' to the connected device
+                // TODO: Temporary
+                startTeacherQuizCiewResultsActivity();
             }
         });
         listView = (ListView) findViewById(R.id.question_list_view);
@@ -225,5 +227,10 @@ public class TeacherQuizCreationActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void startTeacherQuizCiewResultsActivity(){
+        Intent i = new Intent(this, TeacherQuizViewResultsActivity.class);
+        startActivity(i);
     }
 }

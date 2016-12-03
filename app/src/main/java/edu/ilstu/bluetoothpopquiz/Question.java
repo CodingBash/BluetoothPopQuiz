@@ -4,7 +4,7 @@ package edu.ilstu.bluetoothpopquiz;
  * Created by bbece on 11/29/2016.
  */
 
-public class Question {
+public abstract class Question {
     private boolean selected;
     private String question;
 

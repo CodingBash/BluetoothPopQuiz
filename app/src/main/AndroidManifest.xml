@@ -21,7 +21,10 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".TeacherBluetoothActivity" />
         <activity android:name=".StudentBluetoothActivity" />
-        <activity android:name=".TeacherQuizCreationActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".TeacherQuizCreationActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".TeacherQuizViewResultsActivity"></activity>
     </application>
+
 </manifest>
