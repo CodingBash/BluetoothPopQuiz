@@ -44,6 +44,11 @@ public class TeacherQuizViewResultsActivity extends AppCompatActivity {
             answer.setAnswer(0);
             answerList.add(answer);
         }
+
+        WrittenAnswer writtenAnswer = new WrittenAnswer();
+        writtenAnswer.setQuestion(new WrittenQuestion("WrittenQuestion1"));
+        writtenAnswer.setAnswer("AnswerQuestion");
+        answerList.add(writtenAnswer);
     }
 
     private void init(){
