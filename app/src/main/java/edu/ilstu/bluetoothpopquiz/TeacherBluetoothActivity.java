@@ -33,6 +33,8 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         startActivityForResult(discoverableIntent, DISCOVERABLE_REQUEST_CODE);
         createAcceptThread();
+        Intent i = new Intent(this, TeacherQuizCreationActivity.class);
+        startActivity(i);
 
     }
 

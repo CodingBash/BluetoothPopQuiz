@@ -1,79 +1,88 @@
 package edu.ilstu.bluetoothpopquiz;
 
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Method;
-import java.util.UUID;
-
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class StudentBluetoothActivity extends Activity {
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.Set;
 
-    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    BluetoothDevice foundDevice = null;
-    private boolean CONTINUE_READ_WRITE = true;
-    private static final int REQUEST_ENABLE_BT = 1;
-    UUID MY_UUID = UUID.fromString("a60f35f0-b93a-11de-8a19-03002011c456");
+import java.util.List;
+import java.util.UUID;
+
+// TODO: Connection functionality
+public class StudentBluetoothActivity extends AppCompatActivity {
+
+    private ListView bluetoothListView;
+    private BluetoothAdapter bluetoothAdapter;
+    private Set<BluetoothDevice> bluetoothDevices;
+    private ArrayAdapter<String> btArrayAdapter;
+    UUID MY_UUID = UUID.fromString("49091324-bb5f-11e6-a4a6-cec0c932ce01");
+    final int REQUEST_ENABLE_BT = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_bluetooth);
-        mBluetoothAdapter.startDiscovery();
-        registerReceiver();
+        init();
     }
 
-    public void enableBlueTooth(){
-        if (!mBluetoothAdapter.isEnabled()) {
+    private void init() {
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        enableBluetooth();
+        startDiscovery();
+        bluetoothListView = (ListView) findViewById(R.id.bluetooth_list_view);
+        btArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        bluetoothListView.setAdapter(btArrayAdapter);
+        bluetoothListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startPollingActivity();
+            }
+        });
+        list();
+    }
+
+    private void startPollingActivity() {
+        Intent i = new Intent(this, StudentPollingActivity.class);
+        startActivity(i);
+    }
+
+    public void startDiscovery(){
+        bluetoothAdapter.startDiscovery();
+    }
+
+    private void enableBluetooth() {
+        if (!bluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
     }
 
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            // When discovery finds a device
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // Get the BluetoothDevice object from the Intent
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                // Add the name and address to an array adapter to show in a ListView
-                foundDevice = device;
-                TextView txtView = (TextView) findViewById(R.id.teacherFound);
-                txtView.setText(device.getName());
-                createConnectThread();
-            }
+
+    private void list() {
+        bluetoothDevices = bluetoothAdapter.getBondedDevices();
+        for (BluetoothDevice device : bluetoothDevices) {
+            btArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+            ConnectThread connectThread = new ConnectThread(device);
         }
-    };
-    // Register the BroadcastReceiver
-    public void registerReceiver() {
+        btArrayAdapter.add("Xoom" + "\n" + "4C:60:D7:3B:21:11");
 
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter);
-
-    }
-
-    public void createConnectThread(){
-        ConnectThread connectThread = new ConnectThread(foundDevice);
-        connectThread.start();
-    }
-
-    public static void manageConnectedSocket(BluetoothSocket socket){
-        //TODO: Send to an intent that is waiting for a the questions, make sure thread stays active
     }
 
     private class ConnectThread extends Thread {
@@ -90,13 +99,14 @@ public class StudentBluetoothActivity extends Activity {
             try {
                 // MY_UUID is the app's UUID string, also used by the server code
                 tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
-            } catch (IOException e) { }
+            } catch (IOException e) {
+            }
             mmSocket = tmp;
         }
 
         public void run() {
             // Cancel discovery because it will slow down the connection
-            mBluetoothAdapter.cancelDiscovery();
+            bluetoothAdapter.cancelDiscovery();
 
             try {
                 // Connect the device through the socket. This will block
@@ -106,7 +116,8 @@ public class StudentBluetoothActivity extends Activity {
                 // Unable to connect; close the socket and get out
                 try {
                     mmSocket.close();
-                } catch (IOException closeException) { }
+                } catch (IOException closeException) {
+                }
                 return;
             }
 
@@ -114,12 +125,19 @@ public class StudentBluetoothActivity extends Activity {
             manageConnectedSocket(mmSocket);
         }
 
-        /** Will cancel an in-progress connection, and close the socket */
+        /**
+         * Will cancel an in-progress connection, and close the socket
+         */
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e) { }
+            } catch (IOException e) {
+            }
         }
+    }
+
+    public void manageConnectedSocket(BluetoothSocket socket) {
+        ConnectedThread connectedThread = new ConnectedThread(socket);
     }
 
     private class ConnectedThread extends Thread {
@@ -137,42 +155,73 @@ public class StudentBluetoothActivity extends Activity {
             try {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
-            } catch (IOException e) { }
+            } catch (IOException e) {
+            }
 
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
         }
 
-        public void run() {
+        public Object getAnswers() {
             byte[] buffer = new byte[1024];  // buffer store for the stream
             int bytes; // bytes returned from read()
 
             // Keep listening to the InputStream until an exception occurs
             while (true) {
                 try {
-                    // Read from the InputStream
-                    bytes = mmInStream.read(buffer);
-                    // Send the obtained bytes to the UI activity
-                    //mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
-                    //.sendToTarget();
+                    mmInStream.read(buffer);
+                    return toObject(buffer);
                 } catch (IOException e) {
                     break;
                 }
             }
+            return null;
         }
 
         /* Call this from the main activity to send data to the remote device */
-        public void write(byte[] bytes) {
+        public void write(Object questions) {
             try {
-                mmOutStream.write(bytes);
-            } catch (IOException e) { }
+                mmOutStream.write(toByteArray(questions));
+            } catch (IOException e) {
+            }
         }
 
         /* Call this from the main activity to shutdown the connection */
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e) { }
+            } catch (IOException e) {
+            }
         }
+    }
+
+    public static byte[] toByteArray(Object obj) {
+        byte[] bytes = null;
+        ObjectOutputStream oos = null;
+
+        try {
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            oos = new ObjectOutputStream(b);
+            oos.writeObject(obj);
+
+            return b.toByteArray();
+        } catch (Exception e) {
+            Log.e("Bluetooth", "Cast exception at sending end ...");
+        }
+
+        return bytes;
+    }
+
+    public static Object toObject(byte[] bytes) {
+        Object obj = null;
+        ObjectInputStream ois = null;
+
+        try {
+            ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
+            return ois.readObject();
+        } catch (Exception ex) {
+            Log.e("Bluetooth", "Cast exception at receiving end ...");
+        }
+        return obj;
     }
 }
