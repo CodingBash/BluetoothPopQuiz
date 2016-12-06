@@ -19,17 +19,8 @@
         android:id="@+id/app_title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:fontFamily="serif" />
-
-    <Button
-        android:text="Begin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="155dp"
-        android:id="@+id/appstart_button"
-        android:layout_below="@+id/app_title"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:text="Press BEGIN to start the app!"
@@ -39,7 +30,19 @@
         android:layout_marginTop="29dp"
         android:layout_below="@+id/app_title"
         android:layout_centerHorizontal="true"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:text="Begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="106dp"
+        android:id="@+id/appstart_button"
+        android:fontFamily="serif"
+        android:layout_below="@+id/app_description"
+        android:layout_centerHorizontal="true"
+        android:elevation="3dp" />
 
 
 </RelativeLayout>

@@ -16,7 +16,8 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:id="@+id/answer_question_value"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:text="Question:"
@@ -28,7 +29,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:text="Answer:"
@@ -39,7 +41,8 @@
         android:layout_alignBottom="@+id/written_textfield"
         android:layout_alignLeft="@+id/answer_question_title"
         android:layout_alignStart="@+id/answer_question_title"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@color/colorDark" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -52,7 +55,8 @@
         android:layout_alignStart="@+id/answer_question_value"
         android:layout_marginTop="17dp"
         android:hint="Write Answer"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@color/colorDark" />
 
 
 </RelativeLayout>

@@ -21,7 +21,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:allowUndo="true"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:elevation="3dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,7 +35,8 @@
         android:layout_alignBottom="@+id/send_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@android:color/black" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -58,20 +60,6 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/custom_question_field" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Enter custom question"
-        android:ems="10"
-        android:id="@+id/custom_question_field"
-        android:backgroundTint="@color/colorDark"
-        android:layout_below="@+id/send_button"
-        android:layout_toRightOf="@+id/custom_question_check"
-        android:layout_toEndOf="@+id/custom_question_check"
-        android:layout_marginTop="14dp"
-        android:fontFamily="serif" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,7 +71,23 @@
         android:layout_toEndOf="@+id/count_text"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@android:color/black" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Enter custom question"
+        android:ems="10"
+        android:id="@+id/custom_question_field"
+        android:backgroundTint="@color/colorDark"
+        android:layout_marginTop="14dp"
+        android:fontFamily="serif"
+        android:layout_below="@+id/send_button"
+        android:layout_toRightOf="@+id/custom_question_check"
+        android:layout_toEndOf="@+id/custom_question_check"
+        android:textColor="@android:color/black" />
 
 
 </RelativeLayout>

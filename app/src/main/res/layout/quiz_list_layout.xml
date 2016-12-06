@@ -22,6 +22,7 @@
         android:layout_alignBaseline="@+id/question_list_check"
         android:layout_alignBottom="@+id/question_list_check"
         android:layout_toRightOf="@+id/question_list_check"
-        android:text="" />
+        android:text=""
+        android:fontFamily="serif" />
 
 </RelativeLayout>

@@ -19,7 +19,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="61dp"
         android:id="@+id/app_profile_title"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:textColor="@android:color/black" />
 
     <Button
         android:text="I am a teacher"
@@ -29,7 +30,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
         android:id="@+id/teacher_button"
-        android:fontFamily="serif" />
+        android:fontFamily="serif"
+        android:elevation="3dp" />
 
     <Button
         android:text="I AM A STUDENT"
@@ -37,9 +39,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:id="@+id/student_button"
+        android:fontFamily="serif"
         android:layout_below="@+id/teacher_button"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="serif" />
+        android:layout_alignLeft="@+id/teacher_button"
+        android:layout_alignStart="@+id/teacher_button"
+        android:elevation="3dp" />
 
 
 </RelativeLayout>

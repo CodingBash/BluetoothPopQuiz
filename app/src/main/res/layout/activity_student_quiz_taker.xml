@@ -21,14 +21,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dip" >
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:id="@+id/student_quiz_multiplechoice_list_view"
-                android:layout_weight="3">
-            </ListView>
-            <ListView
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:id="@+id/student_quiz_multiplechoice_list_view"
+            android:layout_weight="3">
+        </ListView>
+
+        <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
@@ -42,7 +44,9 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/quiz_submit"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:fontFamily="serif"
+            android:elevation="3dp" />
 
     </LinearLayout>
     </ScrollView>
