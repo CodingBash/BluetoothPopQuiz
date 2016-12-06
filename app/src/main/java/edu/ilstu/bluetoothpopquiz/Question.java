@@ -1,10 +1,12 @@
 package edu.ilstu.bluetoothpopquiz;
 
+import java.io.Serializable;
+
 /**
  * Created by bbece on 11/29/2016.
  */
 
-public abstract class Question {
+public abstract class Question implements Serializable{
     private boolean selected;
     private String question;
 
