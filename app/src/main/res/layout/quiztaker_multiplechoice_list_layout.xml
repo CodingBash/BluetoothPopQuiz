@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="33dp"
         android:layout_marginStart="33dp"
-        android:id="@+id/radio-answer-1"
+        android:id="@+id/radio_answer_1"
         android:layout_below="@+id/answer_question_value"
         android:layout_alignLeft="@+id/answer_question_title"
         android:layout_alignStart="@+id/answer_question_title" />
@@ -43,27 +43,27 @@
         android:text="Answer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radio-answer-2"
-        android:layout_below="@+id/radio-answer-1"
-        android:layout_alignLeft="@+id/radio-answer-1"
-        android:layout_alignStart="@+id/radio-answer-1" />
+        android:id="@+id/radio_answer_2"
+        android:layout_below="@+id/radio_answer_1"
+        android:layout_alignLeft="@+id/radio_answer_1"
+        android:layout_alignStart="@+id/radio_answer_1" />
 
     <RadioButton
         android:text="Answer3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radio-answer-3"
-        android:layout_below="@+id/radio-answer-2"
-        android:layout_alignLeft="@+id/radio-answer-2"
-        android:layout_alignStart="@+id/radio-answer-2" />
+        android:id="@+id/radio_answer_3"
+        android:layout_below="@+id/radio_answer_2"
+        android:layout_alignLeft="@+id/radio_answer_2"
+        android:layout_alignStart="@+id/radio_answer_2" />
 
     <RadioButton
         android:text="Answer4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radio-answer-4"
-        android:layout_below="@+id/radio-answer-3"
-        android:layout_alignLeft="@+id/radio-answer-3"
-        android:layout_alignStart="@+id/radio-answer-3" />
+        android:id="@+id/radio_answer_4"
+        android:layout_below="@+id/radio_answer_3"
+        android:layout_alignLeft="@+id/radio_answer_3"
+        android:layout_alignStart="@+id/radio_answer_3" />
 
 </RelativeLayout>

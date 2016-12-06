@@ -25,7 +25,7 @@ public class StudentBluetoothActivity extends AppCompatActivity {
         Intent i = new Intent(this, StudentQuizTakerActivity.class);
         startActivity(i);
         //////////////////////////////////////////////////
-        init();
+        //init();
     }
     private void init(){
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

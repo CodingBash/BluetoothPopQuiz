@@ -41,6 +41,7 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
     }
 
     private void createMockQuestionList(){
+        questionList = new ArrayList<Question>();
         Question question;
         for (int i = 0; i < 10; i++) {
             question = new MultipleChoiceQuestion("MultipleChoiceQuestion" + i, "Answer1", "Answer2", "Answer3", "Answer4");
@@ -54,6 +55,8 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
     }
 
     private void separateQuestionList(){
+        multipleChoiceQuestions = new ArrayList<MultipleChoiceQuestion>();
+        writtenQuestions = new ArrayList<WrittenQuestion>();
         for(Question question : questionList){
             if(question instanceof MultipleChoiceQuestion){
                 multipleChoiceQuestions.add((MultipleChoiceQuestion) question);
@@ -64,13 +67,14 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
     }
 
     private void init(){
-
+        multipleChoiceListView = (ListView) findViewById(R.id.student_quiz_multiplechoice_list_view);
+        writtenListView = (ListView) findViewById(R.id.student_quiz_written_list_view);
+        displayListView();
     }
 
     private void displayListView(){
-        // TODO: Separate
         multipleChoiceAdapter = new MultipleChoiceAdapter(this,
-                R.layout.answer_list_layout, multipleChoiceQuestions);
+                R.layout.quiztaker_multiplechoice_list_layout, multipleChoiceQuestions);
         multipleChoiceListView.setAdapter(multipleChoiceAdapter);
         multipleChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -80,9 +84,9 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
         });
 
         writtenAdapter = new WrittenAdapter(this,
-                R.layout.answer_list_layout, writtenQuestions);
-        multipleChoiceListView.setAdapter(writtenAdapter);
-        multipleChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                R.layout.quiztaker_written_list_layout, writtenQuestions);
+        writtenListView.setAdapter(writtenAdapter);
+        writtenListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // TODO
