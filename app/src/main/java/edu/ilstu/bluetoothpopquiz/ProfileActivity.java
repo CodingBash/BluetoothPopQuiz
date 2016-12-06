@@ -44,7 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void goToStudentBluetoothActivity(){
         Intent i = new Intent(this, StudentBluetoothActivity.class);
-        i = new Intent(this, StudentPollingActivity.class);
         startActivity(i);
     }
 }
