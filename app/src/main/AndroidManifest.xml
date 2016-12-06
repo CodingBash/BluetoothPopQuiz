@@ -19,7 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".TeacherBluetoothActivity" />
+        <activity
+            android:name=".TeacherBluetoothActivity"
+            android:label="TeacherBluetoothActivity"
+            />
         <activity android:name=".StudentBluetoothActivity" />
         <activity
             android:name=".TeacherQuizCreationActivity"
@@ -28,7 +31,8 @@
         <activity
             android:name=".StudentQuizTakerActivity"
             android:label="@string/title_activity_student_quiz_taker"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

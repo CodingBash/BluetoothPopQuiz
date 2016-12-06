@@ -1,97 +1,58 @@
 package edu.ilstu.bluetoothpopquiz;
 
-//Teacher is to be considered as the remote device. The Student is
-//  client device that scans for available remote devices to connect to.
-
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.UUID;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.UUID;
+
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class TeacherBluetoothActivity extends AppCompatActivity {
 
-    private BluetoothAdapter BA;
-    private Set<BluetoothDevice> pairedDevices;
-    UUID MY_UUID = UUID.fromString("49091324-bb5f-11e6-a4a6-cec0c932ce01");
+    UUID MY_UUID = UUID.fromString("a60f35f0-b93a-11de-8a19-03002011c456");
+    private static final int DISCOVERABLE_REQUEST_CODE =0x1;
+    private static final int REQUEST_ENABLE_BT = 1;
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_bluetooth);
-        // TODO: Bluetooth Implementation
-        blueToothRemote();
-        //Intent i = new Intent(this, TeacherQuizCreationActivity.class);
-        //startActivity(i);
+        //Always make sure that Bluetooth server is discoverable during listening...
+        enableBluetooth();
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        startActivityForResult(discoverableIntent, DISCOVERABLE_REQUEST_CODE);
+        createAcceptThread();
+
     }
 
-    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    final int REQUEST_ENABLE_BT = 1; //request integer must be > 1
-    //use UUID generator for a distinct UUID for client to find,
-    //This exact UUID must also be used in the StudentBluetoothActivity
-
-    public void blueToothRemote() {
-        enableBlueTooth();
-        makeDiscoverable();
+    public void createAcceptThread(){
         AcceptThread acceptThread = new AcceptThread();
-        startAcceptThread(acceptThread);
-
+        acceptThread.start();
     }
 
-    private BluetoothAdapter getmBluetoothAdapter() {
-        return mBluetoothAdapter;
+
+    public void manageConnectedSocket(BluetoothSocket socket){
+        // TODO: send to Teacher Quiz Creating intent, make sure thread stays active
+        Log.d("TRACKER", "Socker has been set");
+        //deviceView.setText("-Motorola Tablet");
     }
 
-    private void enableBlueTooth() {
+    private void enableBluetooth() {
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-    }
-
-    private void makeDiscoverable() {
-        Intent discoverableIntent = new
-                Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-        startActivity(discoverableIntent);
-    }
-
-    private void startAcceptThread(AcceptThread acceptThread) {
-        acceptThread.run();
-    }
-
-    private void endAcceptThread(AcceptThread acceptThread) {
-        acceptThread.cancel();
-    }
-
-    private void manageConnectedSocket(BluetoothSocket socket) {
-        ConnectedThread connectedThread = new ConnectedThread(socket);
     }
 
     private class AcceptThread extends Thread {
@@ -101,16 +62,18 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
             // Use a temporary object that is later assigned to mmServerSocket,
             // because mmServerSocket is final
             BluetoothServerSocket tmp = null;
+            BluetoothSocket socket = null;
             try {
                 // MY_UUID is the app's UUID string, also used by the client code
-                tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("BluetoothPopQuiz", MY_UUID);
-            } catch (IOException e) {
-            }
+                tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("Teacher Device", MY_UUID);
+                Log.d("TRACKER", "Accept thread constructor");
+            } catch (IOException e) { }
             mmServerSocket = tmp;
         }
 
         public void run() {
             BluetoothSocket socket = null;
+            System.out.println("WENT OVER LINE");
             // Keep listening until exception occurs or a socket is returned
             while (true) {
                 try {
@@ -119,32 +82,23 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
                     break;
                 }
                 // If a connection was accepted
-
                 if (socket != null) {
                     // Do work to manage the connection (in a separate thread)
-                    TextView txtView = (TextView) findViewById(R.id.clientConnections);
-                    txtView.setText("Tablet Connected");
                     manageConnectedSocket(socket);
                     try {
                         mmServerSocket.close();
                         break;
-                    } catch (IOException e) {
-                        break;
-                    }
+                    } catch(IOException e){}
                 }
-                // This logic is for only trying to connect one device,
-                //which we will only have to test for one.
             }
+
         }
 
-        /**
-         * Will cancel the listening socket, and cause the thread to finish
-         */
+        /** Will cancel the listening socket, and cause the thread to finish */
         public void cancel() {
             try {
                 mmServerSocket.close();
-            } catch (IOException e) {
-            }
+            } catch (IOException e) { }
         }
     }
 
@@ -163,73 +117,43 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
             try {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
-            } catch (IOException e) {
-            }
+            } catch (IOException e) { }
 
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
         }
 
-        public Object getAnswers() {
+        public void run() {
             byte[] buffer = new byte[1024];  // buffer store for the stream
             int bytes; // bytes returned from read()
 
             // Keep listening to the InputStream until an exception occurs
             while (true) {
                 try {
-                    mmInStream.read(buffer);
-                    return toObject(buffer);
+                    // Read from the InputStream
+                    bytes = mmInStream.read(buffer);
+                    // Send the obtained bytes to the UI activity
+                    // TODO: fix handler
+                    //mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
+                            //.sendToTarget();
                 } catch (IOException e) {
                     break;
                 }
             }
-            return null;
         }
 
         /* Call this from the main activity to send data to the remote device */
-        public void write(Object questions) {
+        public void write(byte[] bytes) {
             try {
-                mmOutStream.write(toByteArray(questions));
-            } catch (IOException e) {
-            }
+                mmOutStream.write(bytes);
+            } catch (IOException e) { }
         }
 
         /* Call this from the main activity to shutdown the connection */
         public void cancel() {
             try {
                 mmSocket.close();
-            } catch (IOException e) {
-            }
+            } catch (IOException e) { }
         }
-    }
-
-    public static byte[] toByteArray(Object obj) {
-        byte[] bytes = null;
-        ObjectOutputStream oos = null;
-
-        try {
-            ByteArrayOutputStream b = new ByteArrayOutputStream();
-            oos = new ObjectOutputStream(b);
-            oos.writeObject(obj);
-
-            return b.toByteArray();
-        } catch (Exception e) {
-            Log.e("Bluetooth", "Cast exception at sending end ...");
-        }
-
-        return bytes;
-    }
-
-    public static Object toObject(byte[] bytes) {
-        Object obj = null;
-        ObjectInputStream ois = null;
-
-        try {
-            ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
-            return ois.readObject();
-        } catch (Exception ex) {
-            Log.e("Bluetooth", "Cast exception at receiving end ...");
-        }
-        return obj;
     }
 }
