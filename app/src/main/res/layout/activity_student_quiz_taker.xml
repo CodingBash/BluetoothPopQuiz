@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_student_quiz_taker"
     android:layout_width="match_parent"
@@ -10,42 +10,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.ilstu.bluetoothpopquiz.StudentQuizTakerActivity">
 
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/quiz_submit" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/quiz_submit"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:id="@+id/student_quiz_multiplechoice_list_view"
+                android:layout_weight="3">
+            </ListView>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:id="@+id/student_quiz_written_list_view"
+                android:layout_weight="3"/>
+
+        <Button
+            android:text="Submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:id="@+id/student_quiz_multiplechoice_list_view"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="35dp" />
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:id="@+id/student_quiz_written_list_view"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="35dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/quiz_submit"
+            android:layout_weight="3" />
 
-        </LinearLayout>
+    </LinearLayout>
     </ScrollView>
-
-
-</RelativeLayout>
+</LinearLayout>
