@@ -12,7 +12,8 @@
         android:layout_alignParentLeft="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:text="Question default text " />
+        android:text="Question default text "
+        android:fontFamily="serif" />
 
     <TextView
         android:id="@+id/answer_list_text"

@@ -20,7 +20,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:allowUndo="true" />
+        android:allowUndo="true"
+        android:fontFamily="serif" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +33,8 @@
         android:layout_alignBaseline="@+id/send_button"
         android:layout_alignBottom="@+id/send_button"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:fontFamily="serif" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -43,7 +45,8 @@
         android:layout_alignBaseline="@+id/custom_question_field"
         android:layout_alignBottom="@+id/custom_question_field"
         android:layout_alignLeft="@+id/count_text"
-        android:layout_alignStart="@+id/count_text" />
+        android:layout_alignStart="@+id/count_text"
+        android:fontFamily="serif" />
 
     <ListView
         android:layout_width="match_parent"
@@ -66,7 +69,8 @@
         android:layout_below="@+id/send_button"
         android:layout_toRightOf="@+id/custom_question_check"
         android:layout_toEndOf="@+id/custom_question_check"
-        android:layout_marginTop="14dp" />
+        android:layout_marginTop="14dp"
+        android:fontFamily="serif" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,7 +82,8 @@
         android:layout_toRightOf="@+id/count_text"
         android:layout_toEndOf="@+id/count_text"
         android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" />
+        android:layout_marginStart="11dp"
+        android:fontFamily="serif" />
 
 
 </RelativeLayout>

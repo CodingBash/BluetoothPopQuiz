@@ -18,7 +18,8 @@
         android:layout_marginTop="42dp"
         android:id="@+id/app_title"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:fontFamily="serif" />
 
     <Button
         android:text="Begin"
@@ -27,7 +28,8 @@
         android:layout_marginTop="155dp"
         android:id="@+id/appstart_button"
         android:layout_below="@+id/app_title"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:fontFamily="serif" />
 
     <TextView
         android:text="Press BEGIN to start the app!"
@@ -36,7 +38,8 @@
         android:id="@+id/app_description"
         android:layout_marginTop="29dp"
         android:layout_below="@+id/app_title"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:fontFamily="serif" />
 
 
 </RelativeLayout>

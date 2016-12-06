@@ -18,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="61dp"
-        android:id="@+id/app_profile_title" />
+        android:id="@+id/app_profile_title"
+        android:fontFamily="serif" />
 
     <Button
         android:text="I am a teacher"
@@ -27,7 +28,8 @@
         android:layout_below="@+id/app_profile_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
-        android:id="@+id/teacher_button" />
+        android:id="@+id/teacher_button"
+        android:fontFamily="serif" />
 
     <Button
         android:text="I AM A STUDENT"
@@ -36,7 +38,8 @@
         android:layout_marginTop="14dp"
         android:id="@+id/student_button"
         android:layout_below="@+id/teacher_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:fontFamily="serif" />
 
 
 </RelativeLayout>
