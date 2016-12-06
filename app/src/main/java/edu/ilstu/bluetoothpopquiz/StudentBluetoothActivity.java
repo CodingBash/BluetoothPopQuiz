@@ -2,6 +2,7 @@ package edu.ilstu.bluetoothpopquiz;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,10 @@ public class StudentBluetoothActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_bluetooth);
+        // TODO: Temporary Redirect to next activity//////
+        Intent i = new Intent(this, StudentQuizTakerActivity.class);
+        startActivity(i);
+        //////////////////////////////////////////////////
         init();
     }
     private void init(){
