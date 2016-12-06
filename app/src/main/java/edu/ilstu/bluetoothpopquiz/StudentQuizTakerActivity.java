@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -75,6 +76,12 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
         ListUtils.setDynamicHeight(writtenListView);
 
         Button button = (Button) findViewById(R.id.quiz_submit);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitQuiz();
+            }
+        });
     }
 
     private void displayListView(){
@@ -181,6 +188,7 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
 
         public class ViewHolder {
             TextView questionValue;
+            EditText editText;
         }
         public WrittenAdapter(Context context, int textViewResourceId,
                                      List<WrittenQuestion> writtenQuestions) {
@@ -202,6 +210,7 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
 
                 holder = new WrittenAdapter.ViewHolder();
                 holder.questionValue = (TextView) convertView.findViewById(R.id.answer_question_value);
+                holder.editText = (EditText) convertView.findViewById(R.id.written_textfield);
                 convertView.setTag(holder);
 
 
@@ -239,9 +248,50 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
         }
     }
 
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
+        }
+    }
 
     private void submitQuiz(){
-        // TODO: Do Quiz Validation Check
+        // TODO: Do Quiz Validation Check (LOW PRIORITY)
+        // TODO: Retrieve Quiz
+        List<Answer> answers = new ArrayList<Answer>();
+        for(int i = 0; i < multipleChoiceQuestions.size(); i++){
+            View view = getViewByPosition(i, multipleChoiceListView);
+            MultipleChoiceAdapter.ViewHolder holder = (MultipleChoiceAdapter.ViewHolder) view.getTag();
+            MultipleChoiceAnswer answer = new MultipleChoiceAnswer();
+            answer.setQuestion(multipleChoiceQuestions.get(i));
+            Integer selectedAnswer = null;
+            if(holder.answerOne.isChecked())
+                selectedAnswer = 0;
+            else if(holder.answerTwo.isChecked())
+                selectedAnswer = 1;
+            else if(holder.answerThree.isChecked())
+                selectedAnswer = 2;
+            else if(holder.answerFour.isChecked())
+                selectedAnswer = 3;
+            answer.setAnswer(selectedAnswer);
+            answers.add(answer);
+        }
+        for(int i = 0; i < writtenQuestions.size(); i++){
+            View view = getViewByPosition(i, writtenListView);
+            WrittenAdapter.ViewHolder holder = (WrittenAdapter.ViewHolder) view.getTag();
+            WrittenAnswer answer = new WrittenAnswer();
+            answer.setQuestion(writtenQuestions.get(i));
+            answer.setAnswer(holder.editText.getText().toString());
+            answers.add(answer);
+        }
+
+
+        // TODO: Bluetooth Logic (HIGH PRIORITY)
     }
 
     public static class ListUtils {
