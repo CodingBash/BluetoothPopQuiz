@@ -32,18 +32,23 @@
         android:text="Answer:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_alignParentTop="true"
+        android:id="@+id/answer_answer_title"
+        android:layout_alignBaseline="@+id/written_textfield"
+        android:layout_alignBottom="@+id/written_textfield"
         android:layout_alignLeft="@+id/answer_question_title"
-        android:layout_alignStart="@+id/answer_question_title"
-        android:layout_marginTop="18dp" />
+        android:layout_alignStart="@+id/answer_question_title" />
 
-    <TextView
-        android:text="This is an answer"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/answer_answer_value"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/written_textfield"
         android:layout_below="@+id/answer_question_value"
-        android:layout_alignRight="@+id/answer_question_value"
-        android:layout_alignEnd="@+id/answer_question_value" />
+        android:layout_alignLeft="@+id/answer_question_value"
+        android:layout_alignStart="@+id/answer_question_value"
+        android:layout_marginTop="17dp"
+        android:hint="Write Answer"/>
+
+
 </RelativeLayout>
