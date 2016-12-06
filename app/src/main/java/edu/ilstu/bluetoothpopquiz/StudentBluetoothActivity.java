@@ -2,13 +2,12 @@ package edu.ilstu.bluetoothpopquiz;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.util.Set;
 
-import java.util.List;
+import java.util.Set;
 
 // TODO: Connection functionality
 public class StudentBluetoothActivity extends AppCompatActivity {
