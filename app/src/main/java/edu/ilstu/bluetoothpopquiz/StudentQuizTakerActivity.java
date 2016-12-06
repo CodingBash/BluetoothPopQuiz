@@ -44,16 +44,19 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
 
     private void createMockQuestionList(){
         questionList = new ArrayList<Question>();
-        Question question;
-        for (int i = 0; i < 10; i++) {
-            question = new MultipleChoiceQuestion("MultipleChoiceQuestion" + i, "Answer1", "Answer2", "Answer3", "Answer4");
-            questionList.add(question);
-        }
+        Question question = new MultipleChoiceQuestion("What is 1+1?", "4", "3", "2", "1");
+        questionList.add(question);
+        question = new MultipleChoiceQuestion("What is 2*2?", "2", "22", "1", "4");
+        questionList.add(question);
+        question = new MultipleChoiceQuestion("What is 3^2?", "9", "3", "32", "1");
+        questionList.add(question);
+        question = new MultipleChoiceQuestion("What is 5-2?", "52", "3", "-3", "2");
+        questionList.add(question);
+        question = new MultipleChoiceQuestion("What is 6+4?", "6", "24", "2", "10");
+        questionList.add(question);
 
-        for (int i = 0; i < 10; i++) {
-            question = new WrittenQuestion("WrittenQuestion" + i);
-            questionList.add(question);
-        }
+        WrittenQuestion writtenQuestion = new WrittenQuestion("What is 1+1");
+        questionList.add(writtenQuestion);
     }
 
     private void separateQuestionList(){

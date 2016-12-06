@@ -34,19 +34,36 @@ public class TeacherQuizViewResultsActivity extends AppCompatActivity {
 
     private void createMockAnswerList(){
         answerList = new ArrayList<Answer>();
-        MultipleChoiceAnswer answer;
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer();
+        answer.setQuestion(new MultipleChoiceQuestion("What is 1+1?", "4", "3", "2", "1"));
+        answer.setAnswer(2);
+        answerList.add(answer);
 
-        for(int i = 0; i < 10; i++){
-            answer  = new MultipleChoiceAnswer();
-            answer.setQuestion(new MultipleChoiceQuestion("Question" + i, "Answer1", "Answer2", "Answer3", "Answer4"));
-            answer.setAnswer(0);
-            answerList.add(answer);
-        }
+        answer = new MultipleChoiceAnswer();
+        answer.setQuestion(new MultipleChoiceQuestion("What is 2*2?", "2", "22", "1", "4"));
+        answer.setAnswer(3);
+        answerList.add(answer);
+
+        answer = new MultipleChoiceAnswer();
+        answer.setQuestion(new MultipleChoiceQuestion("What is 3^2?", "9", "3", "32", "1"));
+        answer.setAnswer(0);
+        answerList.add(answer);
+
+        answer = new MultipleChoiceAnswer();
+        answer.setQuestion(new MultipleChoiceQuestion("What is 5-2?", "52", "3", "-3", "2"));
+        answer.setAnswer(1);
+        answerList.add(answer);
+
+        answer = new MultipleChoiceAnswer();
+        answer.setQuestion(new MultipleChoiceQuestion("What is 6+4?", "6", "24", "2", "10"));
+        answer.setAnswer(3);
+        answerList.add(answer);
 
         WrittenAnswer writtenAnswer = new WrittenAnswer();
-        writtenAnswer.setQuestion(new WrittenQuestion("WrittenQuestion1"));
-        writtenAnswer.setAnswer("AnswerQuestion");
+        writtenAnswer.setQuestion(new WrittenQuestion("What is 1+1"));
+        writtenAnswer.setAnswer("2");
         answerList.add(writtenAnswer);
+
     }
 
     private void init(){
