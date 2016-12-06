@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 public class TeacherBluetoothActivity extends AppCompatActivity {
 
-    UUID MY_UUID = UUID.fromString("a60f35f0-b93a-11de-8a19-03002011c456");
+    UUID MY_UUID = UUID.fromString("49091324-bb5f-11e6-a4a6-cec0c932ce01");
     private static final int DISCOVERABLE_REQUEST_CODE =0x1;
     private static final int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -38,7 +38,7 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
 
     public void createAcceptThread(){
         AcceptThread acceptThread = new AcceptThread();
-        acceptThread.start();
+        //acceptThread.start();
     }
 
 
@@ -50,7 +50,7 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
         //deviceView.setText("-Motorola Tablet");
     }
 
-    private void enableBluetooth() {
+    public void enableBluetooth() {
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
