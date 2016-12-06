@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BluetoothPopQuiz</string>
+    <string name="title_activity_student_quiz_taker">StudentQuizTakerActivity</string>
 </resources>

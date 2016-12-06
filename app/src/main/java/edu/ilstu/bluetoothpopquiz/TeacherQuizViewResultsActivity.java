@@ -50,7 +50,7 @@ public class TeacherQuizViewResultsActivity extends AppCompatActivity {
     }
 
     private void init(){
-        doneButton = (Button) findViewById(R.id.answer_view_done);
+        doneButton = (Button) findViewById(R.id.quiz_submit);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
