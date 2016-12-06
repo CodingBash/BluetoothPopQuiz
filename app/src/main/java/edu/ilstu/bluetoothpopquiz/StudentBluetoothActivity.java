@@ -22,7 +22,7 @@ public class StudentBluetoothActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_bluetooth);
         // TODO: Temporary Redirect to next activity//////
-        Intent i = new Intent(this, StudentQuizTakerActivity.class);
+        Intent i = new Intent(this, StudentPollingActivity.class);
         startActivity(i);
         //////////////////////////////////////////////////
         //init();

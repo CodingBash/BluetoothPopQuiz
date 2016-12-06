@@ -247,7 +247,7 @@ public class TeacherQuizCreationActivity extends AppCompatActivity {
     }
 
     private void startTeacherQuizCiewResultsActivity(){
-        Intent i = new Intent(this, TeacherQuizViewResultsActivity.class);
+        Intent i = new Intent(this, TeacherPollingActivity.class);
         startActivity(i);
     }
 }
