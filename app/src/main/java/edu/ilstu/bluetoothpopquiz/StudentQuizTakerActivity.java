@@ -1,6 +1,7 @@
 package edu.ilstu.bluetoothpopquiz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -295,6 +296,8 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
 
 
         // TODO: Bluetooth Logic (HIGH PRIORITY)
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 
     public static class ListUtils {
