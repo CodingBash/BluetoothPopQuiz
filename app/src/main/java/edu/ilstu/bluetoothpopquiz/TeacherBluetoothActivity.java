@@ -11,6 +11,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.util.Log;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import android.widget.Switch;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Set;
@@ -27,20 +29,34 @@ import java.util.UUID;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 public class TeacherBluetoothActivity extends AppCompatActivity {
 
     private BluetoothAdapter BA;
     private Set<BluetoothDevice>pairedDevices;
     ListView lv;
+    private Switch activateDiscovery;
+    AcceptThread acceptThread;
+    ConnectedThread connectedThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_bluetooth);
-        // TODO: Bluetooth Implementation
-        Intent i = new Intent(this, TeacherQuizCreationActivity.class);
-        startActivity(i);
+        activateDiscovery = (Switch) findViewById(R.id.TurnOnRemoteBT);
+        activateDiscovery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enableBlueTooth();
+                makeDiscoverable();
+
+            }
+        });
+
     }
 
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -49,12 +65,20 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
     //This exact UUID must also be used in the StudentBluetoothActivity
     UUID MY_UUID = UUID.randomUUID();
 
+    public void startQuizCreationActivity()
+    {
+        Intent i = new Intent(this, TeacherQuizCreationActivity.class);
+        startActivity(i);
+    }
+
+
     public void blueToothRemote()
     {
         enableBlueTooth();
         makeDiscoverable();
-        AcceptThread acceptThread = new AcceptThread();
+        //AcceptThread acceptThread = new AcceptThread();
         startAcceptThread(acceptThread);
+        endAcceptThread(acceptThread);
 
     }
     private BluetoothAdapter getmBluetoothAdapter() {
@@ -156,7 +180,7 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
             mmOutStream = tmpOut;
         }
 
-        public byte [] getAnswers() {
+        public Object getAnswers() {
             byte[] buffer = new byte[1024];  // buffer store for the stream
             int bytes; // bytes returned from read()
 
@@ -164,16 +188,16 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
             while (true) {
                 try {
                     mmInStream.read(buffer);
-                    return buffer;
+                    return toObject(buffer);
                 } catch (IOException e){break;}
             }
             return null;
         }
 
         /* Call this from the main activity to send data to the remote device */
-        public void write(byte[] questions) {
+        public void write(Object questions) {
             try {
-                mmOutStream.write(questions);
+                mmOutStream.write(toByteArray(questions));
             } catch (IOException e) { }
         }
 
@@ -182,6 +206,45 @@ public class TeacherBluetoothActivity extends AppCompatActivity {
             try {
                 mmSocket.close();
             } catch (IOException e) { }
+        }
+
+        public byte[] toByteArray(Object obj)
+        {
+            byte[] bytes = null;
+            ObjectOutputStream oos = null;
+
+            try
+            {
+                ByteArrayOutputStream b = new ByteArrayOutputStream();
+                oos = new ObjectOutputStream(b);
+                oos.writeObject(obj);
+
+                return b.toByteArray();
+            }
+            catch(Exception e)
+            {
+                Log.e("Bluetooth", "Cast exception at sending end ...");
+            }
+
+            return bytes;
+        }
+
+        public Object toObject(byte[] bytes)
+        {
+            Object obj = null;
+            ObjectInputStream ois = null;
+
+            try
+            {
+                ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
+                return ois.readObject();
+            }
+            catch(Exception ex)
+            {
+                Log.e("Bluetooth", "Cast exception at receiving end ...");
+            }
+
+            return obj;
         }
     }
 
