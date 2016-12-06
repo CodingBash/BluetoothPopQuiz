@@ -48,7 +48,7 @@
         android:layout_alignLeft="@+id/answer_question_value"
         android:layout_alignStart="@+id/answer_question_value"
         android:layout_marginTop="17dp"
-        android:hint="Write Answer"/>
+        android:hint="100 char limit"/>
 
 
 </RelativeLayout>

@@ -307,9 +307,13 @@ public class StudentQuizTakerActivity extends AppCompatActivity {
             int height = 0;
             int desiredWidth = View.MeasureSpec.makeMeasureSpec(mListView.getWidth(), View.MeasureSpec.UNSPECIFIED);
             for (int i = 0; i < mListAdapter.getCount(); i++) {
-                View listItem = mListAdapter.getView(i, null, mListView);
-                listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-                height += listItem.getMeasuredHeight();
+                try {
+                    View listItem = mListAdapter.getView(i, null, mListView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                    height += listItem.getMeasuredHeight();
+                }catch(NullPointerException npe){
+                    // do nothing
+                }
             }
             ViewGroup.LayoutParams params = mListView.getLayoutParams();
             params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
