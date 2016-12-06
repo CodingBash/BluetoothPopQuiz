@@ -91,26 +91,26 @@ public class TeacherQuizCreationActivity extends AppCompatActivity {
             }
         });
 
-        private void displayListView() {
-            List<Question> questionList = new ArrayList<Question>();
-            Question question;
-            for (int i = 0; i < 10; i++) {
-                question = new MultipleChoiceQuestion("Question" + i, "Answer1", "Answer2", "Answer3", "Answer4");
-                questionList.add(question);
-            }
-            dataAdapter = new MyCustomAdapter(this,
-                    R.layout.quiz_list_layout, questionList);
-            listView.setAdapter(dataAdapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    // TODO
-                }
-            });
-        }
+
     }
 
-
+    private void displayListView() {
+        List<Question> questionList = new ArrayList<Question>();
+        Question question;
+        for (int i = 0; i < 10; i++) {
+            question = new MultipleChoiceQuestion("Question" + i, "Answer1", "Answer2", "Answer3", "Answer4");
+            questionList.add(question);
+        }
+        dataAdapter = new MyCustomAdapter(this,
+                R.layout.quiz_list_layout, questionList);
+        listView.setAdapter(dataAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // TODO
+            }
+        });
+    }
 
     private class MyCustomAdapter extends ArrayAdapter<Question> {
 
