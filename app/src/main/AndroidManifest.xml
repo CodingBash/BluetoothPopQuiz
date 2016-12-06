@@ -24,7 +24,11 @@
         <activity
             android:name=".TeacherQuizCreationActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".TeacherQuizViewResultsActivity"></activity>
+        <activity android:name=".TeacherQuizViewResultsActivity" />
+        <activity
+            android:name=".StudentQuizTakerActivity"
+            android:label="@string/title_activity_student_quiz_taker"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
